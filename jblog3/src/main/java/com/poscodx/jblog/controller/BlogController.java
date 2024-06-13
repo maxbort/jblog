@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 	
-	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
+	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{posNo}" })
 	public String index(
 		@PathVariable("id") String id,
 		@PathVariable("categoryNo") Long categoryNo,

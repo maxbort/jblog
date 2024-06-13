@@ -18,7 +18,7 @@
 	    <logback.version>1.2.11</logback.version>
 	</properties>
 	
-<dependencies>
+	<dependencies>
 		<!-- spring mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
