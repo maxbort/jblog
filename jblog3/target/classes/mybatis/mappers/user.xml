@@ -10,15 +10,31 @@
 		]]>
 	</insert>
 	
+	<insert id="makeBlog" parameterType="uservo">
+		<![CDATA[
+		insert
+		  into blog
+		values (#{id }, "", "")
+		]]>
+	</insert>
 	
-	<select id="findById" parameterType="long" resultType="uservo">
+	
+	<select id="findById" parameterType="string" resultType="uservo">
 		<![CDATA[
 		select id, name
 		  from user
 		 where id = #{id }
 		]]>
 	</select>
-
+	
+	<select id="findByIdAndPassword" parameterType="map" resultType="uservo">
+		<![CDATA[
+		select id, name
+		  from user
+		 where id = #{id }
+		 and password = password(#{password })
+		]]>
+	</select>
 	
 	<update id="update" parameterType="uservo">
 		<choose>

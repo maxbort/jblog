@@ -10,7 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.poscodx.mysite.vo.UserVo;
+import com.poscodx.jblog.vo.UserVo;
 
 public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

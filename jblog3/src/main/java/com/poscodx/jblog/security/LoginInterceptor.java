@@ -6,8 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.poscodx.mysite.service.UserService;
-import com.poscodx.mysite.vo.UserVo;
+import com.poscodx.jblog.service.UserService;
+import com.poscodx.jblog.vo.UserVo;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	private UserService userService;
@@ -19,12 +19,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String email = request.getParameter("email");
+		System.out.println("dodododo");
+		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-
-		UserVo authUser = userService.getUser(email, password);
+		System.out.println("id= " + id +" password = " + password); 
+		UserVo authUser = userService.getUser(id,password);
+		System.out.println(authUser);
+		
+		
 		if(authUser == null) {
-			request.setAttribute("email", email);
+			request.setAttribute("id", id);
 			request.setAttribute("result", "fail");
 			request
 				.getRequestDispatcher("/WEB-INF/views/user/login.jsp")

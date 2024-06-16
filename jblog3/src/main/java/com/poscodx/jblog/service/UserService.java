@@ -1,5 +1,7 @@
 package com.poscodx.jblog.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,15 @@ public class UserService {
 		userRepository.update(vo);
 	}
 	
-	public UserVo getUser(String id) {
-		return userRepository.findById(id);
+//	public UserVo getUser(String id) {
+//		return userRepository.findById(id);
+//	}
+	public UserVo getUser(String id, String password) {
+		return userRepository.findByIdAndPassword(id,password);
+	}
+
+	public void makeBlog(@Valid UserVo vo) {
+		userRepository.makeBlog(vo);
+		
 	}
 }

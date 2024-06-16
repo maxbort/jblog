@@ -14,7 +14,7 @@
        <a href="${pageContext.request.contextPath}/" class="logo-link">
             <h1 class="logo">JBlog</h1>
         </a>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<form class="search-form">
 			<fieldset>
 				<input type="text" name="keyword" />

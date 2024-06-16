@@ -32,14 +32,21 @@ public class UserController {
 			Map<String, Object> map = result.getModel();
 			System.out.println(result);
 			model.addAllAttributes(map);
-
+			
 			return "user/join";
 		}
 		
 		userService.join(vo);
-
+		userService.makeBlog(vo);
 		return "redirect:/user/joinsuccess";
 	}
+	
+	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
+	public String joinsuccess() {
+		return "user/joinsuccess";
+	}
+	
+	
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -47,10 +54,6 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
-	public String joinsuccess() {
-		return "user/joinsuccess";
-	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout() {

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.poscodx.mysite.vo.UserVo;
+import com.poscodx.jblog.vo.UserVo;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -29,6 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		//3. Handler Method의 @Auth 가져오기
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 		
+
 		//5. Handler Method에 @Auth가 없으면 Type(Class)에 붙어 있는지 확인
 		if(auth == null) {
 			auth = handlerMethod
@@ -52,20 +53,32 @@ public class AuthInterceptor implements HandlerInterceptor {
 		}
 		
 		//6. 권한(Authorization) 체크를 위해 @Auth의 role 가져오기("USER", "ADMIN")
-		String role = auth.role();
+		String role = auth.role().toString();
 		
-		//7. @AUTH role이 "USER"인 경우, authUser의 role은 상관없다.
-		if("USER".equals(role)) {
-			return true;
+		if("ADMIN".equals(role)) {
+			//admin 임을 알 수 있는 조건
+			if("root".equals(authUser.getId()) == false) {
+				response.sendRedirect(request.getContextPath());
+				
+				return false;
+			}
 		}
 		
-		//8. @Auth의 role이 "ADMIN"인 경우, authUser의 role은 반드시 "ADMIN"
-		if(!"ADMIN".equals(authUser.getRole())) {
-			response.sendRedirect(request.getContextPath());
-			return false;
-		}
 		
-		//9. 옳은 관리자 권한 @Auth(role="ADMIN"), authUser.getRole() == "ADMIN" 
+		
+//		
+//		//7. @AUTH role이 "USER"인 경우, authUser의 role은 상관없다.
+//		if("USER".equals(role)) {
+//			return true;
+//		}
+//		
+//		//8. @Auth의 role이 "ADMIN"인 경우, authUser의 role은 반드시 "ADMIN"
+//		if(!"ADMIN".equals(authUser.getRole())) {
+//			response.sendRedirect(request.getContextPath());
+//			return false;
+//		}
+		
+		//9. 옳은 관리자 권한 @Auth(role="ADMIN"), authUser.getRole() == "ADMIN"
 		return true;
 	}
 }
