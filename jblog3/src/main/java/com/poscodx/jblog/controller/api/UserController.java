@@ -18,9 +18,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-//	@GetMapping("/checkid")
-//	public Object checkid(@RequestParam(value="id", required=true, defaultValue="") String id) {
-//			UserVo vo = userService.getUser(id);	
-//			return Map.of("exists", vo != null);
-//		}
+	@GetMapping("/checkid")
+	public Object checkid(@RequestParam(value="id", required=true, defaultValue="") String id) {
+			UserVo vo = userService.getUser(id);	
+			return Map.of("exists", vo != null);
+		}
 }

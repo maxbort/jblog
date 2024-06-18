@@ -17,6 +17,7 @@ import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -33,9 +34,16 @@ public class BlogController {
 	public String index(
 		@PathVariable("id") String id,
 		@PathVariable(value="categoryNo", required=false) Long categoryNo,
-		@PathVariable(value="postNo", required=false) Long postNo) {
+		@PathVariable(value="postNo", required=false) Long postNo,
+		Model model) {
+		BlogVo blogVo = blogService.getBlog(id);
+		model.addAttribute(blogVo);
 		
-		BlogVo blogvo = blogService.getBlog(id);
+		if(categoryNo == null) {
+			categoryNo = 1L;
+		}
+		List<PostVo> postList = blogService.getPostList(categoryNo);
+		model.addAttribute(postList);
 		
 		return "blog/main";
 	}
@@ -82,7 +90,6 @@ public class BlogController {
 	}
 	
 	
-	
 	@Auth
 	@RequestMapping(value = "/admin/category/add", method = RequestMethod.POST)
 	public String addCategory(@PathVariable String id, CategoryVo categoryVo) {
@@ -104,10 +111,26 @@ public class BlogController {
 	}
 	
 	
-	//@Auth
+	@Auth
 	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable String id) {
+	public String adminWrite(@PathVariable String id, Model model) {
+		
+		BlogVo blogVo = blogService.getBlog(id);
+		List<CategoryVo> categoryList = blogService.getCategoryListAndPostCount(id);
+		
+		model.addAttribute("blogVo", blogVo);
+		model.addAttribute("categoryList", categoryList);
+		
 		return "blog/admin-write";
 	}
+	
+	@Auth
+	@RequestMapping(value = "/admin/write", method = RequestMethod.POST)
+	public String addPost(@PathVariable String id, @ModelAttribute PostVo postVo) {
+		System.out.println(postVo);
+		blogService.addPost(postVo);
+		return "redirect:/{id}/admin/write";
+	}
+	
 
 }

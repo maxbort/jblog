@@ -10,6 +10,7 @@ import com.poscodx.jblog.repository.CategoryRepository;
 import com.poscodx.jblog.repository.PostRepository;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 
 @Service
 public class BlogService {
@@ -43,6 +44,15 @@ public class BlogService {
 	public int deleteCategory(Long no) {
 		return categoryRepository.deleteCategory(no);
 		
+	}
+
+	public int addPost(PostVo postVo) {
+		return postRepository.addPost(postVo);
+		
+	}
+
+	public List<PostVo> getPostList(Long categoryNo) {
+		return postRepository.getPostList(categoryNo);
 	}
 
 }
