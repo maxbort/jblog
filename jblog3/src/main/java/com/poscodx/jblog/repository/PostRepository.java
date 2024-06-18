@@ -23,4 +23,8 @@ public class PostRepository {
 		return sqlSession.selectList("blog.getPostList",categoryNo);
 	}
 
+	public PostVo getPost(Long postNo) {
+		return sqlSession.selectOne("blog.getPost",postNo);
+	}
+
 }

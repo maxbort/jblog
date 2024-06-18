@@ -21,12 +21,27 @@
 		where id = #{id}
 		]]>		
 	</select>
-	
+	<select id="getPost" parameterType="long" resultType="postvo">
+		<![CDATA[
+		select title, contents, category_no as categoryNo
+		from post
+		where no = #{postNo}
+		]]>		
+	</select>
 	<select id="getPostList" parameterType="long" resultType="postvo">
 		<![CDATA[
-		select title, reg_date
+		select no, title, reg_date as regDate, category_no as categoryNo
 		from post
 		where category_no = #{categoryNo }
+		]]>		
+	</select>
+	
+	<select id="getLastPostNo" parameterType="long" resultType="long">
+		<![CDATA[
+		select no as postNo
+		from post
+		where category_no = #{categoryNo }
+		limit 1
 		]]>		
 	</select>
 	

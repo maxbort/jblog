@@ -11,10 +11,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 </head>
 <body>
-	<div class="center-content">
-  		<a href="${pageContext.request.contextPath}" class="logo-link">
-            <h1 class="logo">JBlog</h1>
-        </a>		
+	<div class="center-content">	
         <c:import url="/WEB-INF/views/includes/header.jsp" />
 		<form id="login-from" name="loginform" method="post" action="${pageContext.request.contextPath}/user/auth" class="login-form">
       		<label class="block-label">아이디</label> <input type="text" name="id">

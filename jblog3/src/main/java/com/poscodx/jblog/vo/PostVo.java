@@ -39,7 +39,7 @@ public class PostVo {
 	@Override
 	public String toString() {
 		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
-				+ ", catgoryNo=" + categoryNo + "]";
+				+ ", categoryNo=" + categoryNo + "]";
 	}
 	
 	

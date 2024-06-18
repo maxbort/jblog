@@ -11,9 +11,6 @@
 </head>
 <body>
 	<div class="center-content">
-        <a href="${pageContext.request.contextPath}/" class="logo-link">
-            <h1 class="logo">JBlog</h1>
-        </a>
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 
 		<form class="join-form" id="join-form" method="post" action="${pageContext.request.contextPath}/user/join">

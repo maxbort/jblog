@@ -14,6 +14,24 @@
 		]]>  
 	</select>
 
+	<select id="getCategoryList" parameterType="string" resultType="categoryvo">
+		<![CDATA[	
+		  select no, name
+		    from category
+		    where blog_id = #{id }
+		    
+		]]>  
+	</select>
+	<select id="getLastCategoryNo" parameterType="string" resultType="long">
+		<![CDATA[	
+		  select no
+		    from category
+		    where blog_id = #{id }
+		    limit 1
+		    
+		]]>  
+	</select>
+
 	<insert id="insertNewCategory" parameterType="categoryvo">
 		<![CDATA[
 		insert

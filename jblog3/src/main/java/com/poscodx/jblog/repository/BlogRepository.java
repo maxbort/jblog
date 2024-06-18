@@ -22,4 +22,8 @@ public class BlogRepository {
 		return sqlSession.update("blog.modify",blogVo);
 	}
 
+	public Long getLastPostNo(Long categoryNo) {
+		return sqlSession.selectOne("blog.getLastPostNo", categoryNo);
+	}
+
 }

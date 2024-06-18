@@ -40,10 +40,22 @@ public class BlogController {
 		model.addAttribute(blogVo);
 		
 		if(categoryNo == null) {
-			categoryNo = 1L;
+			categoryNo = blogService.getLastCategoryNo(id);
 		}
+		if(postNo==null) {
+			postNo = blogService.getLastPostNo(categoryNo);
+		}
+		model.addAttribute("id",id);
 		List<PostVo> postList = blogService.getPostList(categoryNo);
-		model.addAttribute(postList);
+		model.addAttribute("postList",postList);
+		
+		
+		PostVo nowPost = blogService.getPost(postNo);
+		model.addAttribute("nowPost", nowPost);
+
+		List<CategoryVo> categoryList = blogService.getCategoryList(id);
+		model.addAttribute("categoryList", categoryList);
+		
 		
 		return "blog/main";
 	}
@@ -64,8 +76,8 @@ public class BlogController {
 			@ModelAttribute("blogVo") BlogVo blogVo,
 			@RequestParam("newLogo") MultipartFile file,
 			Model model) {
-
-		blogVo.setLogo(blogService.getBlog(id).getLogo());
+		String currentLogo = blogService.getBlog(id).getLogo();
+		blogVo.setLogo(currentLogo);
 		if(file != null) {
 			blogVo.setLogo(fileUploadService.restore(file));
 		} 

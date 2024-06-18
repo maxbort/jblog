@@ -55,4 +55,20 @@ public class BlogService {
 		return postRepository.getPostList(categoryNo);
 	}
 
+	public PostVo getPost(Long postNo) {
+		return postRepository.getPost(postNo);
+	}
+
+	public List<CategoryVo> getCategoryList(String id) {
+		return categoryRepository.getCategoryList(id);
+	}
+
+	public Long getLastCategoryNo(String id) {
+		return categoryRepository.getLastCategoryNo(id);
+	}
+
+	public Long getLastPostNo(Long categoryNo) {
+		return blogRepository.getLastPostNo(categoryNo);
+	}
+
 }

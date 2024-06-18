@@ -25,5 +25,11 @@ public class CategoryRepository {
 		return sqlSession.delete("category.deleteCategory", no);
 
 	}
+	public List<CategoryVo> getCategoryList(String id) {
+		return sqlSession.selectList("category.getCategoryList", id);
+	}
+	public Long getLastCategoryNo(String id) {
+		return sqlSession.selectOne("category.getLastCategoryNo", id);
+	}
 
 }
