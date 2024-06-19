@@ -44,9 +44,11 @@ public class BlogController {
 		}
 		if(postNo==null) {
 			postNo = blogService.getLastPostNo(categoryNo);
+			System.out.println(postNo);
 		}
 		model.addAttribute("id",id);
 		List<PostVo> postList = blogService.getPostList(categoryNo);
+		System.out.println(postList);
 		model.addAttribute("postList",postList);
 		
 		

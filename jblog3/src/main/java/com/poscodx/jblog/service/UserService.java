@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.poscodx.jblog.repository.UserRepository;
 import com.poscodx.jblog.vo.UserVo;
@@ -13,8 +12,7 @@ import com.poscodx.jblog.vo.UserVo;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
-
-	@Transactional
+	
 	public void join(UserVo vo) {
 		userRepository.insert(vo);
 	}
@@ -32,6 +30,5 @@ public class UserService {
 
 	public void makeBlog(@Valid UserVo vo) {
 		userRepository.makeBlog(vo);
-		
 	}
 }
