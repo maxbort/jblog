@@ -49,9 +49,9 @@
 	<update id="modify" parameterType="blogvo">
 		<![CDATA[
 		update blog
-		   set title = #{title},
-		   logo = #{logo}
-		   where id = #{id}
+			set title = #{title},
+			    logo = CASE WHEN #{logo} IS NOT NULL THEN #{logo} ELSE logo END
+			where id = #{id}
 		]]>	
 	</update>
 </mapper>

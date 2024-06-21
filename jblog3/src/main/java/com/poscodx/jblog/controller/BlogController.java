@@ -48,7 +48,6 @@ public class BlogController {
 		}
 		model.addAttribute("id",id);
 		List<PostVo> postList = blogService.getPostList(categoryNo);
-		System.out.println(postList);
 		model.addAttribute("postList",postList);
 		
 		
@@ -67,6 +66,7 @@ public class BlogController {
 	public String adminBasic(@PathVariable String id, Model model) {
 		
 		BlogVo blogVo = blogService.getBlog(id);
+
 		model.addAttribute("blogVo", blogVo);
 		
 		return "blog/admin-basic";
@@ -76,17 +76,22 @@ public class BlogController {
 	@RequestMapping(value="/admin/basic/modify", method=RequestMethod.POST)
 	public String adminBasicModify(@PathVariable("id") String id,
 			@ModelAttribute("blogVo") BlogVo blogVo,
-			@RequestParam("newLogo") MultipartFile file,
+			@RequestParam(value="newLogo", required=false) MultipartFile file,
+			@RequestParam("currentLogo") String currentLogo,
 			Model model) {
-		String currentLogo = blogService.getBlog(id).getLogo();
-		blogVo.setLogo(currentLogo);
-		if(file != null) {
-			blogVo.setLogo(fileUploadService.restore(file));
-		} 
 		
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%here is current test##################################");
+
+		System.out.println(currentLogo);
+		
+		if(file != null && !file.isEmpty()) {
+			blogVo.setLogo(fileUploadService.restore(file));
+		} else {
+			blogVo.setLogo(currentLogo);
+		}
 		blogService.modifyBlog(blogVo);
 		
-		 return "redirect:/{id}/admin/basic";
+		return "redirect:/{id}/admin/basic";
 	}
 
 	@Auth

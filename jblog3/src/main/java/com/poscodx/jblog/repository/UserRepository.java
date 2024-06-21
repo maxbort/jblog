@@ -32,10 +32,7 @@ public class UserRepository {
 	}
 
 	public UserVo findByIdAndPassword(String id, String password) {
-		System.out.println(id+password);
-		UserVo vo = sqlSession.selectOne("user.findByIdAndPassword", Map.of("id", id, "password",password));
-		System.out.println(vo);
-		return vo;
+		return sqlSession.selectOne("user.findByIdAndPassword", Map.of("id", id, "password",password));
 	}
 
 	public int makeBlog(UserVo vo) {

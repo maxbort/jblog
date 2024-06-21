@@ -30,7 +30,6 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			Map<String, Object> map = result.getModel();
-			System.out.println(result);
 			model.addAllAttributes(map);
 			
 			return "user/join";
