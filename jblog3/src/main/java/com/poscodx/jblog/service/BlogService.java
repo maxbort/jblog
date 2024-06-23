@@ -71,4 +71,7 @@ public class BlogService {
 		return blogRepository.getLastPostNo(categoryNo);
 	}
 
+	public int makeBlog(BlogVo blogVo) {
+		return blogRepository.makeBlog(blogVo);
+	}
 }

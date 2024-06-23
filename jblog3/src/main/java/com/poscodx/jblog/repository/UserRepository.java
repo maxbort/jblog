@@ -2,8 +2,6 @@ package com.poscodx.jblog.repository;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -35,8 +33,4 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findByIdAndPassword", Map.of("id", id, "password",password));
 	}
 
-	public int makeBlog(UserVo vo) {
-		
-		return sqlSession.insert("user.makeBlog", vo);
-	}
 }

@@ -25,5 +25,10 @@ public class BlogRepository {
 	public Long getLastPostNo(Long categoryNo) {
 		return sqlSession.selectOne("blog.getLastPostNo", categoryNo);
 	}
+	
+	public int makeBlog(BlogVo blogVo) {
+		
+		return sqlSession.insert("blog.makeBlog", blogVo);
+	}
 
 }

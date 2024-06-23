@@ -10,13 +10,7 @@
 		]]>
 	</insert>
 	
-	<insert id="makeBlog" parameterType="uservo">
-		<![CDATA[
-		insert
-		  into blog
-		values (#{id }, "", "")
-		]]>
-	</insert>
+
 	
 	
 	<select id="findById" parameterType="string" resultType="uservo">

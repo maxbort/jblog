@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.UserService;
+import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
@@ -20,6 +22,8 @@ import com.poscodx.jblog.vo.UserVo;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BlogService blogService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute UserVo vo){
@@ -36,7 +40,11 @@ public class UserController {
 		}
 		
 		userService.join(vo);
-		userService.makeBlog(vo);
+		BlogVo blogVo = new BlogVo();
+		blogVo.setId(vo.getId());
+		blogVo.setLogo("/assets/images/spring-logo.jpg");
+		blogVo.setTitle("Default Name");
+		blogService.makeBlog(blogVo);
 		return "redirect:/user/joinsuccess";
 	}
 	
