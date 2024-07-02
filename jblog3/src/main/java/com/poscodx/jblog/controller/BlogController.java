@@ -2,9 +2,12 @@ package com.poscodx.jblog.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,21 +16,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.security.Auth;
+import com.poscodx.jblog.security.AuthUser;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.FileUploadService;
+import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
+import com.poscodx.jblog.vo.UserVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 	
 	@Autowired
-	BlogService blogService;
+	private BlogService blogService;
 	
 	@Autowired
-	FileUploadService fileUploadService;
+	private FileUploadService fileUploadService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
@@ -44,7 +56,6 @@ public class BlogController {
 		}
 		if(postNo==null) {
 			postNo = blogService.getLastPostNo(categoryNo);
-			System.out.println(postNo);
 		}
 		model.addAttribute("id",id);
 		List<PostVo> postList = blogService.getPostList(categoryNo);
@@ -61,10 +72,16 @@ public class BlogController {
 		return "blog/main";
 	}
 	
-	@Auth
+
 	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
-	public String adminBasic(@PathVariable String id, Model model) {
+	public String adminBasic(@PathVariable String id, @AuthUser UserVo vo, Model model) {
 		
+		UserVo authUser = userService.getUser(vo.getId());
+		System.out.println(id);
+		System.out.println(authUser.getId());
+		if(!id.equals(authUser.getId())) {
+			return "blog/main";
+		}
 		BlogVo blogVo = blogService.getBlog(id);
 
 		model.addAttribute("blogVo", blogVo);
@@ -72,17 +89,14 @@ public class BlogController {
 		return "blog/admin-basic";
 	}
 	
-	@Auth
+
+	
 	@RequestMapping(value="/admin/basic/modify", method=RequestMethod.POST)
 	public String adminBasicModify(@PathVariable("id") String id,
 			@ModelAttribute("blogVo") BlogVo blogVo,
 			@RequestParam(value="newLogo", required=false) MultipartFile file,
 			@RequestParam("currentLogo") String currentLogo,
 			Model model) {
-		
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%here is current test##################################");
-
-		System.out.println(currentLogo);
 		
 		if(file != null && !file.isEmpty()) {
 			blogVo.setLogo(fileUploadService.restore(file));
@@ -94,7 +108,6 @@ public class BlogController {
 		return "redirect:/{id}/admin/basic";
 	}
 
-	@Auth
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable String id, Model model) {
 		
@@ -109,7 +122,6 @@ public class BlogController {
 	}
 	
 	
-	@Auth
 	@RequestMapping(value = "/admin/category/add", method = RequestMethod.POST)
 	public String addCategory(@PathVariable String id, CategoryVo categoryVo) {
 		
@@ -120,7 +132,6 @@ public class BlogController {
 		return "redirect:/{id}/admin/category";
 	}
 	
-	@Auth
 	@RequestMapping(value = "/admin/category/delete/{no}", method = RequestMethod.GET)
 	public String deleteCategory(@PathVariable("id") String id, @PathVariable("no") Long no) {
 		
@@ -135,7 +146,6 @@ public class BlogController {
 	}
 	
 	
-	@Auth
 	@RequestMapping("/admin/write")
 	public String adminWrite(@PathVariable String id, Model model) {
 		
