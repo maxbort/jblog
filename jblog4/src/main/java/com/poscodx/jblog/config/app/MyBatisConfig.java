@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class MyBatisConfig {
 	
 	@Bean
-	public SqlSessionFactory sqlSessionFactory(
+	public SqlSessionFactory sqlSessionFactory( 
 			DataSource dataSource,
 			ApplicationContext applicationContext
 			) throws Exception {

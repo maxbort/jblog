@@ -12,11 +12,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 
 @Configuration
-@PropertySource("classpath:com/poscodx/jblog/config/app/jdbc.properties")
+@PropertySource("classpath:com/poscodx/jblog/config/app/jdbc.properties") // jdbc 파일 위치 지정
 public class DBConfig {
 	
 	@Autowired
-	private Environment env;
+	private Environment env; // 스프링 환경에서 프로퍼티 가져오는 인터페이스
 	
 	@Bean
 	public DataSource dataSource() {

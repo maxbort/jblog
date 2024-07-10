@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer{
+	
 	// View Resolver
 		@Bean
 		public ViewResolver viewResolover() {

@@ -17,5 +17,4 @@ import com.poscodx.jblog.config.web.SecurityConfig;
 @ComponentScan({"com.poscodx.jblog.controller", "com.poscodx.jblog.exception"})
 public class WebConfig implements WebMvcConfigurer{
 	
-
 }

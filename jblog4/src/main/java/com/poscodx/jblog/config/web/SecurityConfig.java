@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.poscodx.jblog.security.AuthInterceptor;
 import com.poscodx.jblog.security.AuthUserHandlerMethodArgumentResolver;
 import com.poscodx.jblog.security.LoginInterceptor;
 import com.poscodx.jblog.security.LogoutInterceptor;
@@ -40,11 +39,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 			return new LogoutInterceptor();
 		}
 
-		@Bean
-		public HandlerInterceptor authInterceptor() {
-			return new AuthInterceptor();
-		}
-		
+
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry
@@ -55,9 +50,5 @@ public class SecurityConfig implements WebMvcConfigurer{
 				.addInterceptor(logoutInterceptor())
 				.addPathPatterns("/user/logout");
 
-			registry
-				.addInterceptor(authInterceptor())
-				.addPathPatterns("/**")
-				.excludePathPatterns("/user/auth", "/user/logout", "/assets/**");
 		}
 }

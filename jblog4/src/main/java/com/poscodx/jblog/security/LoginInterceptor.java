@@ -4,12 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.UserVo;
 
 public class LoginInterceptor implements HandlerInterceptor {
+	@Autowired
 	private UserService userService;
 	
 
@@ -20,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		System.out.println("dodododo");
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		System.out.println("id= " + id +" password = " + password); 
+		System.out.println("id2= " + id +" password2 = " + password); 
 		UserVo authUser = userService.getUser(id,password);
 		System.out.println(authUser);
 		
